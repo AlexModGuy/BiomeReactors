@@ -1,0 +1,81 @@
+package com.github.alexthe666.biomereactors;
+
+import net.minecraft.init.Blocks;
+import net.minecraft.world.biome.BiomeGenBase;
+import biomereactors.api.BiomeMappings;
+import biomereactors.api.BiomeMappings.MapEntry;
+
+public class BaseBiomeMappings {
+	public static void init(){
+		BiomeMappings map = BiomeMappings.instance();
+		map.addToBiomeMappings(map.new MapEntry(Blocks.brown_mushroom_block), BiomeGenBase.mushroomIsland);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.brown_mushroom), BiomeGenBase.mushroomIsland);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.cactus), BiomeGenBase.desert);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.clay), BiomeGenBase.river);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.deadbush), BiomeGenBase.desert);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.dirt, 2), BiomeGenBase.megaTaiga);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.dragon_egg), BiomeGenBase.sky);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.end_stone), BiomeGenBase.sky);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.glowstone), BiomeGenBase.hell);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.hardened_clay, Integer.MAX_VALUE), BiomeGenBase.mesa);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.hay_block), BiomeGenBase.plains);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.ice), BiomeGenBase.iceMountains);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.log, 0), BiomeGenBase.forest);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.log, 2), BiomeGenBase.birchForest);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.log, 1), BiomeGenBase.coldTaiga);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.log, 3), BiomeGenBase.jungle);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.log2, 0), BiomeGenBase.savanna);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.log2, 1), BiomeGenBase.roofedForest);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.leaves, 0), BiomeGenBase.forest);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.leaves, 2), BiomeGenBase.birchForest);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.leaves, 1), BiomeGenBase.coldTaiga);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.leaves, 3), BiomeGenBase.jungle);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.leaves2, 0), BiomeGenBase.savanna);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.leaves2, 1), BiomeGenBase.roofedForest);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.melon_block), BiomeGenBase.jungle);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.mossy_cobblestone), BiomeGenBase.megaTaiga);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.mycelium), BiomeGenBase.mushroomIsland);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.nether_brick), BiomeGenBase.hell);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.nether_brick_fence), BiomeGenBase.hell);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.nether_brick_stairs), BiomeGenBase.hell);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.netherrack), BiomeGenBase.hell);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.obsidian), BiomeGenBase.hell);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.packed_ice), BiomeGenBase.icePlains);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.planks, 0), BiomeGenBase.forest);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.planks, 2), BiomeGenBase.birchForest);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.planks, 1), BiomeGenBase.coldTaiga);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.planks, 3), BiomeGenBase.jungle);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.planks, 4), BiomeGenBase.savanna);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.planks, 5), BiomeGenBase.roofedForest);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.pumpkin), BiomeGenBase.plains);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.red_flower, 0), BiomeGenBase.plains);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.red_flower, 1), BiomeGenBase.swampland);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.red_flower, 2), BiomeGenBase.forest);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.red_flower, 3), BiomeGenBase.forest);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.red_flower, 4), BiomeGenBase.forest);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.red_flower, 5), BiomeGenBase.forest);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.red_flower, 6), BiomeGenBase.forest);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.red_flower, 7), BiomeGenBase.forest);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.red_flower, 8), BiomeGenBase.plains);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.red_mushroom_block), BiomeGenBase.mushroomIsland);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.red_mushroom), BiomeGenBase.mushroomIsland);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.sapling, 0), BiomeGenBase.forest);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.sapling, 1), BiomeGenBase.coldTaiga);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.sapling, 2), BiomeGenBase.birchForest);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.sapling, 3), BiomeGenBase.jungle);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.sapling, 4), BiomeGenBase.savanna);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.sapling, 5), BiomeGenBase.roofedForest);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.sandstone, Integer.MAX_VALUE), BiomeGenBase.desert);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.sandstone_stairs, Integer.MAX_VALUE), BiomeGenBase.desert);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.snow), BiomeGenBase.icePlains);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.soul_sand), BiomeGenBase.hell);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.sponge), BiomeGenBase.deepOcean);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.sand, Integer.MAX_VALUE), BiomeGenBase.desert);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.tallgrass, 1), BiomeGenBase.plains);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.tallgrass, 2), BiomeGenBase.megaTaiga);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.vine), BiomeGenBase.jungle);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.waterlily), BiomeGenBase.swampland);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.yellow_flower), BiomeGenBase.plains);
+
+	}
+}

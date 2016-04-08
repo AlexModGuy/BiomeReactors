@@ -1,0 +1,5 @@
+tile.biomereactors.biomereactoroff.name=Biome Reactor
+tile.biomereactors.biomereactoron.name=Biome Reactor
+container.biomereactor=Biome Reactor
+container.biomereactor.rf=Current RF:
+container.biomereactor.prog=Progress:

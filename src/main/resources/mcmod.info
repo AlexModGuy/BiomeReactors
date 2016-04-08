@@ -1,0 +1,16 @@
+[
+{
+  "modid": "biomereactors",
+  "name": "Biome Reactors",
+  "description": "Biome Reactors allow players to exchange RF power in order to change biomes.",
+  "version": "1.0.0",
+  "mcversion": "1.7.10",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Alexthe666"],
+  "credits": "",
+  "logoFile": "assets/biomereactors/textures/logo.png",
+  "screenshots": [],
+  "dependencies": []
+}
+]
