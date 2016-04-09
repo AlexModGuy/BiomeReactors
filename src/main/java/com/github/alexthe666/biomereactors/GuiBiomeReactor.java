@@ -44,7 +44,7 @@ public class GuiBiomeReactor extends GuiContainer
         int l = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
 
-            int i1 = reactor.getPowerScaled(67);
+            int i1 = reactor.getPowerScaled(68);
             this.drawTexturedModalRect(k + 151, l + 72 - i1, 176, 65 - i1, 19, i1);
 
     }

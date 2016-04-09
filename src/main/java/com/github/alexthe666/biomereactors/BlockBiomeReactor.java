@@ -161,51 +161,46 @@ public class BlockBiomeReactor extends BlockContainer {
 	public Item getItem(World world, int x, int y, int z) {
 		return Item.getItemFromBlock(BiomeReactors.biome_reactor_off);
 	}
-	
+
 	public void breakBlock(World world, int x, int y, int z, Block block, int i){
-            TileEntityBiomeReactor tileentityfurnace = (TileEntityBiomeReactor)world.getTileEntity(x, y, z);
-            Random rand = new Random();
-            if (tileentityfurnace != null)
-            {
-                for (int i1 = 0; i1 < tileentityfurnace.getSizeInventory(); ++i1)
-                {
-                    ItemStack itemstack = tileentityfurnace.getStackInSlot(i1);
+		if(!this.keepFurnaceInventory){
+			TileEntityBiomeReactor tileentityfurnace = (TileEntityBiomeReactor)world.getTileEntity(x, y, z);
+			Random rand = new Random();
+			if (tileentityfurnace != null)
+			{
+				ItemStack itemstack = tileentityfurnace.getStackInSlot(1);
 
-                    if (itemstack != null)
-                    {
-                        float f = rand.nextFloat() * 0.8F + 0.1F;
-                        float f1 = rand.nextFloat() * 0.8F + 0.1F;
-                        float f2 = rand.nextFloat() * 0.8F + 0.1F;
+				if (itemstack != null)
+				{
+					float f = rand.nextFloat() * 0.8F + 0.1F;
+					float f1 = rand.nextFloat() * 0.8F + 0.1F;
+					float f2 = rand.nextFloat() * 0.8F + 0.1F;
 
-                        while (itemstack.stackSize > 0)
-                        {
-                            int j1 = rand.nextInt(21) + 10;
+					while (itemstack.stackSize > 0)
+					{
+						int j1 = rand.nextInt(21) + 10;
 
-                            if (j1 > itemstack.stackSize)
-                            {
-                                j1 = itemstack.stackSize;
-                            }
+						if (j1 > itemstack.stackSize)
+						{
+							j1 = itemstack.stackSize;
+						}
 
-                            itemstack.stackSize -= j1;
-                            EntityItem entityitem = new EntityItem(world, (double)((float)x + f), (double)((float)y + f1), (double)((float)z + f2), new ItemStack(itemstack.getItem(), j1, itemstack.getItemDamage()));
-
-                            if (itemstack.hasTagCompound())
-                            {
-                                entityitem.getEntityItem().setTagCompound((NBTTagCompound)itemstack.getTagCompound().copy());
-                            }
-
-                            float f3 = 0.05F;
-                            entityitem.motionX = (double)((float)rand.nextGaussian() * f3);
-                            entityitem.motionY = (double)((float)rand.nextGaussian() * f3 + 0.2F);
-                            entityitem.motionZ = (double)((float)rand.nextGaussian() * f3);
-                            world.spawnEntityInWorld(entityitem);
-                        }
-                    }
-                }
-
-                world.func_147453_f(x, y, z, block);
-            }
-
-        super.breakBlock(world, x, y, z, block, i);
-    }
+						itemstack.stackSize -= j1;
+						EntityItem entityitem = new EntityItem(world, (double)((float)x + f), (double)((float)y + f1), (double)((float)z + f2), new ItemStack(itemstack.getItem(), j1, itemstack.getItemDamage()));
+						if (itemstack.hasTagCompound())
+						{
+							entityitem.getEntityItem().setTagCompound((NBTTagCompound)itemstack.getTagCompound().copy());
+						}
+						float f3 = 0.05F;
+						entityitem.motionX = (double)((float)rand.nextGaussian() * f3);
+						entityitem.motionY = (double)((float)rand.nextGaussian() * f3 + 0.2F);
+						entityitem.motionZ = (double)((float)rand.nextGaussian() * f3);
+						world.spawnEntityInWorld(entityitem);
+					}
+				}
+				world.func_147453_f(x, y, z, block);
+			}
+		}
+		super.breakBlock(world, x, y, z, block, i);
+	}
 }

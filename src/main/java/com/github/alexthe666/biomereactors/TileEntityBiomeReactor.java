@@ -1,20 +1,24 @@
 package com.github.alexthe666.biomereactors;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.world.biome.BiomeDecorator;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.util.ForgeDirection;
 import biomereactors.api.BiomeMappings;
 import biomereactors.api.BiomeMappings.MapEntry;
 import cofh.api.energy.TileEnergyHandler;
+import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -28,7 +32,7 @@ public class TileEntityBiomeReactor extends TileEnergyHandler implements ISidedI
 
 	public TileEntityBiomeReactor()
 	{
-		this.storage.setCapacity(400000);
+		this.storage.setCapacity(BiomeReactors.config_energy_needed);
 	}
 
 	public int getSizeInventory()
@@ -132,7 +136,7 @@ public class TileEntityBiomeReactor extends TileEnergyHandler implements ISidedI
 	@SideOnly(Side.CLIENT)
 	public int getPowerScaled(int i)
 	{
-		return this.getEnergyStored(null) * i / 400000;
+		return this.getEnergyStored(null) * i / BiomeReactors.config_energy_needed;
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -202,17 +206,16 @@ public class TileEntityBiomeReactor extends TileEnergyHandler implements ISidedI
 				this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, "biomereactors:world.biome_reactor", 0.5F, 1);
 			}
 		}
-		
+
 		boolean flag1 = false;
 		ticksExisted++;
-		if (this.isPowered() && this.biomeTime > 0)
-		{
-			this.setEnergyStore(this.getEnergyStored(null) - 101);
-		}
-		if(this.getEnergyStored(null) > 0 && this.getBiomeFromItem() != null && ticksExisted % 40 == 0 && biomeTime < 100){
-			this.biomeTime++;
-			if(this.worldObj.getBlock(this.xCoord, this.yCoord, this.zCoord) == BiomeReactors.biome_reactor_off){
-				BlockBiomeReactor.updateBlockState(this.getEnergyStored(null) > 0, this.worldObj, this.xCoord, this.yCoord, this.zCoord);
+		if(this.getEnergyStored(null) > 0 && this.getBiomeFromItem() != null && biomeTime < 100){
+			this.setEnergyStore(this.getEnergyStored(null) - 200);
+			if(this.getEnergyStored(null) % (BiomeReactors.config_energy_needed / 100) == 0){
+				this.biomeTime++;
+				if(this.worldObj.getBlock(this.xCoord, this.yCoord, this.zCoord) == BiomeReactors.biome_reactor_off){
+					BlockBiomeReactor.updateBlockState(this.getEnergyStored(null) > 0, this.worldObj, this.xCoord, this.yCoord, this.zCoord);
+				}
 			}
 		}
 		if(this.getBiomeFromItem() == null && biomeTime > 0){
@@ -222,7 +225,8 @@ public class TileEntityBiomeReactor extends TileEnergyHandler implements ISidedI
 			}
 		}
 		if(biomeTime == 100 && this.getBiomeFromItem() != null){
-			this.changeBiome(this.getBiomeFromItem());
+			BiomeGenBase currentBiome = this.worldObj.getBiomeGenForCoords(this.xCoord, this.yCoord);
+			this.changeBiome(this.getBiomeFromItem(), currentBiome);
 			this.biomeTime = 0;
 			this.decrStackSize(1, 1);
 			if(this.worldObj.getBlock(this.xCoord, this.yCoord, this.zCoord) == BiomeReactors.biome_reactor_on){
@@ -235,24 +239,57 @@ public class TileEntityBiomeReactor extends TileEnergyHandler implements ISidedI
 		}	
 	}
 
-	public void changeBiome(BiomeGenBase biome) {
+	public void changeBiome(BiomeGenBase biome, BiomeGenBase currentBiome) {
 		for (int x = this.xCoord - 5; x <= this.xCoord + 5; ++x){
 			for (int z = this.zCoord - 5; z <= this.zCoord + 5; ++z){
-				this.worldObj.spawnParticle("townaura", x + new Random().nextFloat(), this.yCoord + 0.5D, z + new Random().nextFloat(),  new Random().nextFloat(),  new Random().nextFloat(),  new Random().nextFloat());
-				this.worldObj.spawnParticle("townaura", x + new Random().nextFloat(), this.yCoord + 0.5D, z + new Random().nextFloat(),  new Random().nextFloat(),  new Random().nextFloat(),  new Random().nextFloat());
-				this.worldObj.spawnParticle("townaura", x + new Random().nextFloat(), this.yCoord + 0.5D, z + new Random().nextFloat(),  new Random().nextFloat(),  new Random().nextFloat(),  new Random().nextFloat());
-				this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, "random.fizz", new Random().nextFloat(), 1);
-				if(!this.worldObj.isRemote){
-					int chunkX = x & 0xF;
-					int chunkZ = z & 0xF;
+				int chunkX = x & 0xF;
+				int chunkZ = z & 0xF;
+				
+				if(BiomeReactors.config_change_worldgen){
+					for(int y = 0; y < 256; y++){
+						if(this.worldObj.getBlock(x, y, z) == currentBiome.topBlock && new Random().nextInt(6) == 0){
+							if(biome == BiomeGenBase.sky){
+								this.worldObj.setBlock(x, y, z, Blocks.end_stone, 0, 2);
+							}
+							else if(biome == BiomeGenBase.hell){
+								this.worldObj.setBlock(x, y, z, Blocks.netherrack, 0, 2);
+							}
+							else{
+								this.worldObj.setBlock(x, y, z, biome.topBlock, biome.field_150604_aj, 2);
+							}
+						}
+						else if(this.worldObj.getBlock(x, y, z) == currentBiome.fillerBlock && new Random().nextInt(6) == 0){
+							if(biome == BiomeGenBase.sky){
+								this.worldObj.setBlock(x, y, z, Blocks.end_stone, 0, 2);
+							}
+							else if(biome == BiomeGenBase.hell){
+								this.worldObj.setBlock(x, y, z, Blocks.netherrack, 0, 2);
+							}
+							else if(biome == BiomeGenBase.desert){
+								this.worldObj.setBlock(x, y, z, Blocks.sand, 0, 2);
+							}
+							else{
+								this.worldObj.setBlock(x, y, z, biome.fillerBlock, biome.field_76754_C, 2);
+							}
+						}			
+					}
+				}
+				//this.worldObj.spawnParticle("townaura", x + new Random().nextFloat(), this.yCoord + 0.5D, z + new Random().nextFloat(),  new Random().nextFloat(),  new Random().nextFloat(),  new Random().nextFloat());
+				//this.worldObj.spawnParticle("townaura", x + new Random().nextFloat(), this.yCoord + 0.5D, z + new Random().nextFloat(),  new Random().nextFloat(),  new Random().nextFloat(),  new Random().nextFloat());
+				//this.worldObj.spawnParticle("townaura", x + new Random().nextFloat(), this.yCoord + 0.5D, z + new Random().nextFloat(),  new Random().nextFloat(),  new Random().nextFloat(),  new Random().nextFloat());
+				//this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, "random.fizz", new Random().nextFloat(), 1);
+
+				if(!this.worldObj.isRemote){	
 					if(biome != null){
 						Chunk chunk = this.worldObj.getChunkFromBlockCoords(x, z);
 						chunk.getBiomeArray()[ chunkZ << 4 | chunkX ] = (byte) biome.biomeID;
+						///this.worldObj.getBiomeGenForCoords(x, z).theBiomeDecorator = biome.createBiomeDecorator();
+						//this.worldObj.getBiomeGenForCoords(x, z).theBiomeDecorator.decorateChunk(worldObj, new Random(), biome, chunkX, chunkZ);
 						chunk.isModified = true;
-
 						BiomeReactors.channel.sendToAll(new MessageChangeBiome(x, z, biome.biomeID));
 					}
 				}
+
 			}
 		}
 	}
@@ -283,7 +320,7 @@ public class TileEntityBiomeReactor extends TileEnergyHandler implements ISidedI
 	}
 
 	public int getMaxEnergyStored(ForgeDirection from) {
-		return 400000;
+		return BiomeReactors.config_energy_needed;
 	}
 
 	public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate) {
