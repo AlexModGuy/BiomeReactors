@@ -274,10 +274,10 @@ public class TileEntityBiomeReactor extends TileEnergyHandler implements ISidedI
 						}			
 					}
 				}
-				//this.worldObj.spawnParticle("townaura", x + new Random().nextFloat(), this.yCoord + 0.5D, z + new Random().nextFloat(),  new Random().nextFloat(),  new Random().nextFloat(),  new Random().nextFloat());
-				//this.worldObj.spawnParticle("townaura", x + new Random().nextFloat(), this.yCoord + 0.5D, z + new Random().nextFloat(),  new Random().nextFloat(),  new Random().nextFloat(),  new Random().nextFloat());
-				//this.worldObj.spawnParticle("townaura", x + new Random().nextFloat(), this.yCoord + 0.5D, z + new Random().nextFloat(),  new Random().nextFloat(),  new Random().nextFloat(),  new Random().nextFloat());
-				//this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, "random.fizz", new Random().nextFloat(), 1);
+				this.worldObj.spawnParticle("townaura", x + new Random().nextFloat(), this.yCoord + 0.5D, z + new Random().nextFloat(),  new Random().nextFloat(),  new Random().nextFloat(),  new Random().nextFloat());
+				this.worldObj.spawnParticle("townaura", x + new Random().nextFloat(), this.yCoord + 0.5D, z + new Random().nextFloat(),  new Random().nextFloat(),  new Random().nextFloat(),  new Random().nextFloat());
+				this.worldObj.spawnParticle("townaura", x + new Random().nextFloat(), this.yCoord + 0.5D, z + new Random().nextFloat(),  new Random().nextFloat(),  new Random().nextFloat(),  new Random().nextFloat());
+				this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, "random.fizz", new Random().nextFloat(), 1);
 
 				if(!this.worldObj.isRemote){	
 					if(biome != null){
