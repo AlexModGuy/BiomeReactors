@@ -70,7 +70,8 @@ public class BaseBiomeMappings {
 		map.addToBiomeMappings(map.new MapEntry(Blocks.snow), BiomeGenBase.icePlains);
 		map.addToBiomeMappings(map.new MapEntry(Blocks.soul_sand), BiomeGenBase.hell);
 		map.addToBiomeMappings(map.new MapEntry(Blocks.sponge), BiomeGenBase.deepOcean);
-		map.addToBiomeMappings(map.new MapEntry(Blocks.sand, Integer.MAX_VALUE), BiomeGenBase.desert);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.sand, 0), BiomeGenBase.desert);
+		map.addToBiomeMappings(map.new MapEntry(Blocks.sand, 1), BiomeGenBase.mesa);
 		map.addToBiomeMappings(map.new MapEntry(Blocks.tallgrass, 1), BiomeGenBase.plains);
 		map.addToBiomeMappings(map.new MapEntry(Blocks.tallgrass, 2), BiomeGenBase.megaTaiga);
 		map.addToBiomeMappings(map.new MapEntry(Blocks.vine), BiomeGenBase.jungle);
